@@ -122,6 +122,7 @@ def downloadImages(path_to_food_database , path_to_datafolder , nTypes, nOfEachT
                      "print_paths":True,
                      "output_directory":str(path),
                      "print_urls" : False,
+                     "chromedriver" : "C:\\Chromedriver\\chromedriver.exe"
                      }
         print(i)   
         # Passing the arguments to the function
@@ -270,23 +271,24 @@ def partition_data(trainRatio,path_to_datafolder,timestamp):
         IMGpaths = subFrame['Image Path']
         
         for index in indTrain:
-            print(IMGpaths.iloc[index])
-            print("train: " + path_train)
-            print("test: " + path_test)
-            print(path + "\\" + IMGpaths.iloc[index])
-            print(path_train + "\\" + IMGpaths.iloc[index])
-            if (".png" not in str(IMGpaths.iloc[index])):
-                shutil.copy(path + "\\" + IMGpaths.iloc[index], path_train + "\\" + IMGpaths.iloc[index])
+            if (".jpg" in str(IMGpaths.iloc[index])):
+                try:
+                    shutil.copy(path + "\\" + IMGpaths.iloc[index], path_train + "\\" + IMGpaths.iloc[index])
+                except:
+                    print("shutil failed.")
             else:
-                print("A PNG file was skipped.")
+                print("A non-jpg file was skipped: {0}".format(str(IMGpaths.iloc[index])))
             
             #shutil.copy(IMGpaths.iloc[index], IMGpaths.iloc[index])
         
         for index in indTest:
-            print(IMGpaths.iloc[index])
-            if (".png" not in str(IMGpaths.iloc[index])):
-                shutil.copy(path + "\\" + IMGpaths.iloc[index], path_test + "\\" + IMGpaths.iloc[index])
-            #shutil.copy(IMGpaths.iloc[index], IMGpaths.iloc[index])
+            if (".jpg" in str(IMGpaths.iloc[index])):
+                try:
+                    shutil.copy(path + "\\" + IMGpaths.iloc[index], path_test + "\\" + IMGpaths.iloc[index])
+                except:
+                    print("shutil failed.")
+            else:
+                print("A non-jpg file was skipped: {0}".format(str(IMGpaths.iloc[index])))
     
     
     newFrame = newFrame.sort_index()
@@ -430,13 +432,13 @@ def resizeImageFolder(read_path,save_path = None, newShape = np.array((200,200))
                     makedirs(save_path + "\\" + folder + "\\" + foodType)
                 
                 # Safe the scaled image
-                print(save_path + "\\" + folder + "\\" + foodType + "\\" + filename)
-                print(newImg)
-                print()
-                if (".png" not in str(newImg)):
-                    imsave(save_path + "\\" + folder + "\\" + foodType + "\\" + filename , newImg)
+                if (".jpg" in filename):
+                    try:
+                        imsave(save_path + "\\" + folder + "\\" + foodType + "\\" + filename , newImg)
+                    except:
+                        print("This one failed to save for some reason: {0}".format(save_path + "\\" + folder + "\\" + foodType + "\\" + filename))
                 else:
-                    print("This was a PNG.")
+                    print("This was a non-jpg: {0}".format(filename))
 
     
     return 0
@@ -544,12 +546,15 @@ path_to_FoodDataBase = 'C:\\food-training-images-database\\Michael_Food_Database
 path_to_dataFolder = 'C:\\food-training-images-database\\data'  
 
 nTypes = 4 # Number of distinct food types to download
-nEacgFood = 5 # Number of images to download from each category
-trainRatio = 0 # How large ratio of the images should be saved for validation
+nEacgFood = 200 # Number of images to download from each category
+trainRatio = 1/10 # How large ratio of the images should be saved for validation
 
 # Run the three files to download and manage images
+print("DOWNLOADING:")
 timestamp = downloadImages(path_to_FoodDataBase , path_to_dataFolder, nTypes = nTypes, nOfEachType = nEacgFood)
+print("CLEARNING:")
 clean_foodimages(path_to_dataFolder , timestamp)
+print("PARTITIONING:")
 partition_data(trainRatio , path_to_dataFolder , timestamp)
 
 
