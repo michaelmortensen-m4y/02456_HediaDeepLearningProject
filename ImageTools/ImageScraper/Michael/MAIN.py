@@ -562,7 +562,7 @@ path_to_FoodDataBase = 'C:\\food-training-images-database\\Michael_Food_Database
 path_to_dataFolder = 'C:\\food-training-images-database\\data'  
 
 nTypes = 5 # Number of distinct food types to download
-nEacgFood = 50 # Number of images to download from each category
+nEacgFood = 250 # Number of images to download from each category
 trainRatio = 1/10 # How large ratio of the images should be saved for validation
 
 # Run the three files to download and manage images
