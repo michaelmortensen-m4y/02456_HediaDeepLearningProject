@@ -102,7 +102,7 @@ def downloadImages(path_to_food_database , path_to_datafolder , nTypes, nOfEachT
     timestamp = time.strftime("%d%m%y") + "_" + time.strftime("%H%M")
     
     # Set download directory
-    path = Path(path_to_datafolder) / 'food images' / 'google' / timestamp / 'raw'
+    path = path_to_datafolder + '\\food images' + '\\google\\' + timestamp + '\\raw'
     
     # Set number of food types to download
     nFood = nTypes-1
@@ -116,7 +116,8 @@ def downloadImages(path_to_food_database , path_to_datafolder , nTypes, nOfEachT
         foldername = str(i)
         
         # Defines arguments for search function
-        arguments = {"keywords":food_name,
+        arguments = {"format" : "jpg",
+                     "keywords":food_name,
                      "limit":nOfEachType,
                      "image_directory":foldername,
                      "print_paths":True,
@@ -146,7 +147,7 @@ def downloadImages(path_to_food_database , path_to_datafolder , nTypes, nOfEachT
     
     logfilename = 'dataLog.csv'
     # Saves the logfile as CSV
-    filename = Path(path_to_datafolder) / 'food images' / 'google' / timestamp / 'raw' / logfilename
+    filename = path_to_datafolder + '\\food images' + '\\google\\' + timestamp + '\\raw\\' + logfilename
     foodDataFrame.to_csv(filename, sep=',', encoding='utf-8' , index = 0)
     
     return timestamp
@@ -313,7 +314,7 @@ def partition_data(trainRatio,path_to_datafolder,timestamp):
     
     return 0
 
-def clean_foodimages(path_to_datafolder , timestamp):
+def clean_foodimages(path_to_datafolder , timestamp, srcfolder):
     
     """ Cleans a directory of downloaded images
     
@@ -333,14 +334,29 @@ def clean_foodimages(path_to_datafolder , timestamp):
     @author: Mads Obdrup Jakobsen
     """
     FolderToBeCleaned = timestamp
-    #path_train = path_to_datafolder / 'food images' / 'google' / FolderToBeCleaned / 'raw'
-    path_train = path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\raw'
     
-    # Find the existing logfile and prepare the cleaned logFile
-    logfilename = 'dataLog.csv'
-    logfilenameClean =  'dataLogNoCorrupt.csv'
-    #df2 = pd.read_csv(path_train / logfilename, sep = "," , header = 0)
-    df2 = pd.read_csv(path_train + "\\" + logfilename, sep = "," , header = 0)
+    if srcfolder == "raw":
+        path_train = path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\raw'
+        
+        # Find the existing logfile and prepare the cleaned logFile
+        logfilename = path_train + '\\dataLog.csv'
+        logfilenameClean =  path_train + '\\dataLogNoCorrupt.csv'
+    elif srcfolder == "train":
+        path_train = path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\DL\\training_images'
+        
+        # Find the existing logfile and prepare the cleaned logFile
+        logfilename = path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\DL\\train.csv'
+        logfilenameClean =  path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\DL\\train_clean.csv'
+    elif srcfolder == "test":
+        path_train = path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\DL\\testing_images'
+        
+        # Find the existing logfile and prepare the cleaned logFile
+        logfilename = path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\DL\\test.csv'
+        logfilenameClean =  path_to_datafolder + '\\food images\\google\\' + FolderToBeCleaned + '\\DL\\test_clean.csv'
+    else:
+        raise ValueError("Error in cleaner.")
+
+    df2 = pd.read_csv(logfilename, sep = "," , header = 0)
     for folder in next(os.walk(path_train))[1]:  
         for filename in listdir(path_train + "\\" + folder):
             if filename.endswith('.jpg'):
@@ -352,16 +368,16 @@ def clean_foodimages(path_to_datafolder , timestamp):
                     #os.remove(path_train / folder / filename)
                     os.remove(path_train + "\\" + folder + "\\" + filename)
                     print('Corrupted file removed:', filename)
-                    df2 = df2.loc[df2['Image Path'] != folder + '/' + filename]
+                    df2 = df2.loc[df2['Image Path'] != folder + '\\' + filename]
             else:
                 #os.remove(path_train / folder / filename)
                 os.remove(path_train + "\\" + folder + "\\" + filename)
                 print('File not jpg. Removed:', filename)
-                df2 = df2.loc[df2['Image Path'] != folder + '/' + filename]
+                df2 = df2.loc[df2['Image Path'] != folder + '\\' + filename]
     
     # Saves the new logfile and removes the old.          
-    df2.to_csv(path_train + "\\" + logfilenameClean, sep=',', encoding='utf-8' , index = 0)
-    os.remove(path_train + "\\" + logfilename)
+    df2.to_csv(logfilenameClean, sep=',', encoding='utf-8' , index = 0)
+    os.remove(logfilename)
 
     return 0           
        
@@ -545,15 +561,15 @@ path_to_FoodDataBase = 'C:\\food-training-images-database\\Michael_Food_Database
 #path_to_dataFolder = Path.home()  / "data"
 path_to_dataFolder = 'C:\\food-training-images-database\\data'  
 
-nTypes = 4 # Number of distinct food types to download
-nEacgFood = 200 # Number of images to download from each category
+nTypes = 5 # Number of distinct food types to download
+nEacgFood = 50 # Number of images to download from each category
 trainRatio = 1/10 # How large ratio of the images should be saved for validation
 
 # Run the three files to download and manage images
 print("DOWNLOADING:")
 timestamp = downloadImages(path_to_FoodDataBase , path_to_dataFolder, nTypes = nTypes, nOfEachType = nEacgFood)
 print("CLEARNING:")
-clean_foodimages(path_to_dataFolder , timestamp)
+clean_foodimages(path_to_dataFolder , timestamp, "raw")
 print("PARTITIONING:")
 partition_data(trainRatio , path_to_dataFolder , timestamp)
 
@@ -577,8 +593,14 @@ read_path = 'C:\\food-training-images-database\\' + 'data\\' + 'food images\\' +
 
 resizeImageFolder(read_path, save_path = read_path , newShape = newShape , CropOrPad = 0)
 
-
 ## OPTIONAL MERGE OF FOLDERS AGAIN TO ACHIEVE SAME STRUCTURE AS IN WEEK 4
 merge = True
 if merge:
     mergeFoldersFunc(timestamp, read_path)
+    
+print("CLEARNING RESIZED TRAINING:")
+clean_foodimages(path_to_dataFolder , timestamp, "train")
+print("CLEARNING RESIZED TESTING:")
+clean_foodimages(path_to_dataFolder , timestamp, "test")
+    
+print("DONE")
