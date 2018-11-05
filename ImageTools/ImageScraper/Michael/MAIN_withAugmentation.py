@@ -555,13 +555,20 @@ def reSizePad(image , newShape = np.array((100,100)) , CropOrPad = 0 , cropShape
         
     return(image , newDim)
  
-def augmentImageFolder(settings, read_path, save_path):
+def augmentImageFolders(settings, read_path, save_path):
     dir_names = ['testing_images' , 'training_images']
     if save_path == None:
         save_path = read_path
     
     # Loop through all downloaded images through nested loops
     for folder in dir_names:
+        if folder == "testing_images":
+            csvFilename = 'test_clean.csv'
+            setIndex = "0"
+        else:
+            csvFilename = 'train_clean.csv'
+            setIndex = "1"
+            
         classFolders = listdir(read_path + "\\" + folder)
         
         # Avoid the hidden file '.DS_Store'
@@ -575,10 +582,11 @@ def augmentImageFolder(settings, read_path, save_path):
             for filename in files:
                 imgPath = read_path + "\\" + folder + "\\" + foodType + "\\" + filename
                 
-                #if "_FLIPPEDLEFTRIGHT" in imgPath or "_ROTATED90" in imgPath or "_OVEREXPOSED" in imgPath or "_UNDEREXPOSED" in imgPath or "_BLURED" in imgPath:
-                #    print("Removing: {0}".format(imgPath))
-                #    os.remove(imgPath)
-                
+                '''
+                if "_FLIPPEDLEFTRIGHT" in imgPath or "_ROTATED90" in imgPath or "_OVEREXPOSED" in imgPath or "_UNDEREXPOSED" in imgPath or "_BLURED" in imgPath:
+                    print("Removing: {0}".format(imgPath))
+                    os.remove(imgPath)
+                '''
                 ### Here we do augmentation
                 augmentedImages_PILimgs, augmentedImages_paths = augmentImage(settings, imgPath)
                 
@@ -592,6 +600,11 @@ def augmentImageFolder(settings, read_path, save_path):
                     if (".jpg" in newFilename):
                         try:
                             img.save(newFilename)
+                            # Add path to csv file as well
+                            df = {"id":[""], "Food Class":[foodType], "Name of Food":[""], "Image Path":[("" + folder + "\\" + newFilename)], "Set Index":[setIndex]}
+                            dataframe = pd.DataFrame(df)
+                            with open('{0}.csv'.format(csvFilename),'a') as csvFile:
+                                (dataframe).to_csv(csvFile, header=False)
                             print("Saved augmented image: {0}".format(newFilename))
                         except:
                             print("This augmented one failed to save for some reason: {0}".format(newFilename))
@@ -698,17 +711,18 @@ nTypes = 5 # Number of distinct food types to download
 nEacgFood = 5 # Number of images to download from each category
 trainRatio = 1/5 # How large ratio of the images should be saved for validation
 augmentImages = True
-augmentSettings = {"doAug_prob" : 8/10,
-                   "doFlip_prob" : 1/10,
-                   "doRotate_prob" : 1/10,
-                   "doOverExpose_prob" : 1/10,
-                   "doUnderExpose_prob" : 1/10,
-                   "doBlur_prob" : 1/10
+augmentSettings = {"doAug_prob" : 10/10,
+                   "doFlip_prob" : 5/10,
+                   "doRotate_prob" : 5/10,
+                   "doOverExpose_prob" : 5/10,
+                   "doUnderExpose_prob" : 5/10,
+                   "doBlur_prob" : 5/10
                   }
 
 
 # Run the three files to download and manage images
 print("DOWNLOADING:")
+#timestamp = "291018_1724"
 timestamp = downloadImages(path_to_FoodDataBase , path_to_dataFolder, nTypes = nTypes, nOfEachType = nEacgFood)
 print("CLEARNING:")
 clean_foodimages(path_to_dataFolder , timestamp, "raw")
@@ -733,18 +747,18 @@ cropShape = np.array([-100,100,-100,100]) # Only active if crop is chosen
 #read_path = Path.home() / 'data' / 'food images' / 'google' / timestamp / 'DL'
 read_path = 'C:\\food-training-images-database\\' + 'data\\' + 'food images\\' + 'google\\' + timestamp + '\\DL'
 
-#resizeImageFolder(read_path, save_path = read_path , newShape = newShape , CropOrPad = 0)
+resizeImageFolder(read_path, save_path = read_path , newShape = newShape , CropOrPad = 0)
 
 print("DONE SCRAPING")
 
 if augmentImages:
     print("AUGMENTING IMAGES")
-    augmentImageFolder(augmentSettings, read_path, save_path=read_path)
+    augmentImageFolders(augmentSettings, read_path, save_path=read_path)
 
 ## OPTIONAL MERGE OF FOLDERS AGAIN TO ACHIEVE SAME STRUCTURE AS IN WEEK 4
-#merge = True
-#if merge:
-#    mergeFoldersFunc(timestamp, read_path)
+merge = True
+if merge:
+    mergeFoldersFunc(timestamp, read_path)
     
 print("CLEARNING RESIZED TRAINING:")
 clean_foodimages(path_to_dataFolder , timestamp, "train")
