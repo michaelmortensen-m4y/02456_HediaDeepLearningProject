@@ -1,46 +1,46 @@
 
 
 
-***** TRAINING DONE: 2018-12-08 11:26:13.836912 *****
+***** TRAINING DONE: 2018-12-15 11:14:05.761601 *****
 
 Data summary:
-Training data path: /home/ubuntu/ImageData/SingleLabeled/SingleLabeled/training_images
-Testing data path: /home/ubuntu/ImageData/SingleLabeled/SingleLabeled/testing_images
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
 Number of classes: 10
-Class names: ['Spaghetti', 'Glass of water', 'Rice', 'Pancake', 'Glass of milk', 'Potato', 'Bread', 'Salad', 'Beef', 'Prawns']
-Useable training images in total: 99069
-Useable augmented training images in total: 0
-Useable test images in total: 24758
-Useable augmented test images in total: 0
-Training data errors: 674
-Testing data errors: 165
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce', 'glass of milk', 'boiled potatoes', 'boiled peas', 'plain rice', 'meatballs', 'glass of water']
+Useable training images in total: 8647
+Useable augmented training images in total: 1549
+Useable test images in total: 2158
+Useable augmented test images in total: 390
+Training data errors: 39
+Testing data errors: 10
 
 Settings:
-NUM_EPOCHS: 1
-BATCH_SIZE: 96
+NUM_EPOCHS: 2
+BATCH_SIZE: 128
 DIM: 300
 NUM_WORKERS: 0
-USE_TRAIN_AUGMENTATION: False
-USE_TEST_AUGMENTATION: False
-USE_LAZY_IMAGE_LOADING: True
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
 FRACTION_OF_DATA_TO_USE: 1
 USE_CUDA: False
 
 Network: 
 Net(
-  (conv_1): Conv2d(3, 16, kernel_size=(8, 8), stride=(1, 1))
-  (maxPool2d_1): MaxPool2d(kernel_size=5, stride=1, padding=0, dilation=1, ceil_mode=False)
-  (batchnorm_1): BatchNorm2d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_1): Conv2d(3, 32, kernel_size=(8, 8), stride=(1, 1))
+  (maxPool2d_1): MaxPool2d(kernel_size=16, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
   (relu_conv1): ReLU()
-  (conv_2): Conv2d(16, 32, kernel_size=(8, 8), stride=(2, 2))
-  (maxPool2d_2): MaxPool2d(kernel_size=5, stride=1, padding=0, dilation=1, ceil_mode=False)
-  (batchnorm_2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_2): Conv2d(32, 64, kernel_size=(8, 8), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=16, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
   (relu_conv2): ReLU()
-  (conv_3): Conv2d(32, 64, kernel_size=(8, 8), stride=(2, 2))
-  (maxPool2d_3): MaxPool2d(kernel_size=5, stride=1, padding=0, dilation=1, ceil_mode=False)
-  (batchnorm_3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (conv_3): Conv2d(64, 128, kernel_size=(8, 8), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=16, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
   (relu_conv3): ReLU()
-  (l_1): Linear(in_features=238144, out_features=2000, bias=True)
+  (l_1): Linear(in_features=225792, out_features=2000, bias=True)
   (relu_l_1): ReLU()
   (l_2): Linear(in_features=2000, out_features=500, bias=True)
   (relu_l_2): ReLU()
@@ -48,16 +48,927 @@ Net(
 )
 
 Test results:
-Accuracy of the network on the 24758 test images: 39.00 %(Random guessing would be 10.00 % on average)
-    Accuracy of Spaghetti : 530 of 2486 correct = 21.32 %
-    Accuracy of Glass of water: 1479 of 2399 correct = 61.65 %
-    Accuracy of Rice      : 757 of 2489 correct = 30.41 %
-    Accuracy of Pancake   : 886 of 2497 correct = 35.48 %
-    Accuracy of Glass of milk: 1052 of 2473 correct = 42.54 %
-    Accuracy of Potato    : 631 of 2482 correct = 25.42 %
-    Accuracy of Bread     : 939 of 2470 correct = 38.02 %
-    Accuracy of Salad     : 1206 of 2478 correct = 48.67 %
-    Accuracy of Beef      : 1145 of 2492 correct = 45.95 %
-    Accuracy of Prawns    : 1232 of 2492 correct = 49.44 %
+Accuracy of the network on the 2158 test images: 59.00 %(Random guessing would be 10.00 % on average)
+    Accuracy of plain spaghetti: 145 of 199 correct = 72.86 %
+    Accuracy of slice of bread: 111 of 265 correct = 41.89 %
+    Accuracy of fried egg : 153 of 213 correct = 71.83 %
+    Accuracy of chopped lettuce: 97 of 199 correct = 48.74 %
+    Accuracy of glass of milk: 158 of 225 correct = 70.22 %
+    Accuracy of boiled potatoes: 101 of 199 correct = 50.75 %
+    Accuracy of boiled peas: 123 of 200 correct = 61.50 %
+    Accuracy of plain rice: 107 of 199 correct = 53.77 %
+    Accuracy of meatballs : 148 of 231 correct = 64.07 %
+    Accuracy of glass of water: 123 of 228 correct = 53.95 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-15 19:30:06.558835 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 10
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce', 'glass of milk', 'boiled potatoes', 'boiled peas', 'plain rice', 'meatballs', 'glass of water']
+Useable training images in total: 863
+Useable augmented training images in total: 153
+Useable test images in total: 201
+Useable augmented test images in total: 39
+Training data errors: 9
+Testing data errors: 0
+
+Settings:
+NUM_EPOCHS: 8
+BATCH_SIZE: 8
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 0.1
+USE_CUDA: False
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 32, kernel_size=(8, 8), stride=(1, 1))
+  (maxPool2d_1): MaxPool2d(kernel_size=8, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(32, 64, kernel_size=(16, 16), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=8, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(64, 128, kernel_size=(16, 16), stride=(4, 4))
+  (maxPool2d_3): MaxPool2d(kernel_size=8, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=61952, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=500, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=500, out_features=10, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 201 test images: 40.00 %(Random guessing would be 10.00 % on average)
+    Accuracy of plain spaghetti: 9 of 17 correct = 52.94 %
+    Accuracy of slice of bread: 9 of 15 correct = 60.00 %
+    Accuracy of fried egg : 15 of 20 correct = 75.00 %
+    Accuracy of chopped lettuce: 12 of 26 correct = 46.15 %
+    Accuracy of glass of milk: 12 of 26 correct = 46.15 %
+    Accuracy of boiled potatoes: 2 of 20 correct = 10.00 %
+    Accuracy of boiled peas: 4 of 19 correct = 21.05 %
+    Accuracy of plain rice: 3 of 21 correct = 14.29 %
+    Accuracy of meatballs : 8 of 20 correct = 40.00 %
+    Accuracy of glass of water: 9 of 16 correct = 56.25 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-15 20:18:41.892420 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 10
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce', 'glass of milk', 'boiled potatoes', 'boiled peas', 'plain rice', 'meatballs', 'glass of water']
+Useable training images in total: 358
+Useable augmented training images in total: 57
+Useable test images in total: 95
+Useable augmented test images in total: 14
+Training data errors: 3
+Testing data errors: 0
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 8
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 0.04
+USE_CUDA: True
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 32, kernel_size=(8, 8), stride=(1, 1))
+  (maxPool2d_1): MaxPool2d(kernel_size=8, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(32, 64, kernel_size=(16, 16), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=8, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(64, 128, kernel_size=(16, 16), stride=(4, 4))
+  (maxPool2d_3): MaxPool2d(kernel_size=8, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=61952, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=500, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=500, out_features=10, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 95 test images: 30.00 %(Random guessing would be 10.00 % on average)
+    Accuracy of plain spaghetti: 1 of 7 correct = 14.29 %
+    Accuracy of slice of bread: 2 of 14 correct = 14.29 %
+    Accuracy of fried egg : 3 of 10 correct = 30.00 %
+    Accuracy of chopped lettuce: 0 of 7 correct =  0.00 %
+    Accuracy of glass of milk: 6 of 15 correct = 40.00 %
+    Accuracy of boiled potatoes: 4 of 7 correct = 57.14 %
+    Accuracy of boiled peas: 2 of 8 correct = 25.00 %
+    Accuracy of plain rice: 2 of 5 correct = 40.00 %
+    Accuracy of meatballs : 7 of 12 correct = 58.33 %
+    Accuracy of glass of water: 3 of 10 correct = 30.00 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 15:36:22.535150 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 4
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce']
+Useable training images in total: 133
+Useable augmented training images in total: 23
+Useable test images in total: 42
+Useable augmented test images in total: 8
+Training data errors: 0
+Testing data errors: 0
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 8
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 0.04
+CLASSES_TO_USE: 4
+USE_CUDA: False
+
+Network Summary: 
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(32, 64, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=2, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=4608, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=200, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=200, out_features=4, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 42 test images: 52.00 %(Random guessing would be 25.00 % on average)
+    Accuracy of plain spaghetti: 6 of 7 correct = 85.71 %
+    Accuracy of slice of bread: 4 of 13 correct = 30.77 %
+    Accuracy of fried egg : 4 of 10 correct = 40.00 %
+    Accuracy of chopped lettuce: 7 of 12 correct = 58.33 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 15:36:52.867018 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 4
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce']
+Useable training images in total: 133
+Useable augmented training images in total: 23
+Useable test images in total: 42
+Useable augmented test images in total: 8
+Training data errors: 0
+Testing data errors: 0
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 8
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 0.04
+CLASSES_TO_USE: 4
+USE_CUDA: False
+
+Network Summary: 
+
+Conv1 values:
+    in channels: 3
+    out channels: 32
+    kernelsize: 3
+    stride: 2
+    out height: 149
+    out width: 149
+
+Max1 values:
+    kernelsize: 4
+    padding: 0
+    stride: 2
+
+Conv2 values:
+    in channels: 32
+    out channels: 64
+    kernelsize: 4
+    stride: 2
+    out height: 73
+    out width: 73
+
+Max2 values:
+    kernelsize: 4
+    padding: 0
+    stride: 2
+
+Conv3 values:
+    in channels: 64
+    out channels: 128
+    kernelsize: 4
+    stride: 2
+    out height: 35
+    out width: 35
+
+Max3 values:
+    kernelsize: 2
+    padding: 0
+    stride: 1
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(32, 64, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=2, stride=1, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=4608, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=200, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=200, out_features=4, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 42 test images: 52.00 %(Random guessing would be 25.00 % on average)
+    Accuracy of plain spaghetti: 6 of 7 correct = 85.71 %
+    Accuracy of slice of bread: 4 of 13 correct = 30.77 %
+    Accuracy of fried egg : 4 of 10 correct = 40.00 %
+    Accuracy of chopped lettuce: 7 of 12 correct = 58.33 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 15:55:12.784814 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 4
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce']
+Useable training images in total: 133
+Useable augmented training images in total: 32
+Useable test images in total: 45
+Useable augmented test images in total: 7
+Training data errors: 1
+Testing data errors: 0
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 8
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 0.04
+CLASSES_TO_USE: 4
+USE_CUDA: False
+
+Network Summary: 
+
+Conv1 values:
+    in channels: 3
+    out channels: 32
+    kernelsize: 3
+    stride: 2
+    out height: 149
+    out width: 149
+
+Max1 values:
+    kernelsize: 4
+    padding: 0
+    stride: 2
+
+Conv2 values:
+    in channels: 32
+    out channels: 64
+    kernelsize: 4
+    stride: 2
+    out height: 73
+    out width: 73
+
+Max2 values:
+    kernelsize: 4
+    padding: 0
+    stride: 2
+
+Conv3 values:
+    in channels: 64
+    out channels: 128
+    kernelsize: 4
+    stride: 2
+    out height: 35
+    out width: 35
+
+Max3 values:
+    kernelsize: 4
+    padding: 0
+    stride: 2
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 32, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(32, 64, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=4, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=512, out_features=200, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=200, out_features=40, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=40, out_features=4, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 45 test images: 46.00 %(Random guessing would be 25.00 % on average)
+    Accuracy of plain spaghetti: 3 of 9 correct = 33.33 %
+    Accuracy of slice of bread: 9 of 16 correct = 56.25 %
+    Accuracy of fried egg : 4 of 13 correct = 30.77 %
+    Accuracy of chopped lettuce: 5 of 7 correct = 71.43 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 16:09:02.559702 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 4
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce']
+Useable training images in total: 1455
+Useable augmented training images in total: 319
+Useable test images in total: 348
+Useable augmented test images in total: 75
+Training data errors: 4
+Testing data errors: 3
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 32
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 0.4
+CLASSES_TO_USE: 4
+USE_CUDA: False
+
+Network Summary: 
+
+Conv1 values:
+    in channels: 3
+    out channels: 64
+    kernelsize: 3
+    stride: 2
+    out height: 149
+    out width: 149
+
+Max1 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv2 values:
+    in channels: 64
+    out channels: 128
+    kernelsize: 4
+    stride: 2
+    out height: 73
+    out width: 73
+
+Max2 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv3 values:
+    in channels: 128
+    out channels: 512
+    kernelsize: 4
+    stride: 2
+    out height: 35
+    out width: 35
+
+Max3 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(128, 512, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=8192, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=200, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=200, out_features=4, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 348 test images: 72.00 %(Random guessing would be 25.00 % on average)
+    Accuracy of plain spaghetti: 56 of 78 correct = 71.79 %
+    Accuracy of slice of bread: 71 of 100 correct = 71.00 %
+    Accuracy of fried egg : 60 of 86 correct = 69.77 %
+    Accuracy of chopped lettuce: 66 of 84 correct = 78.57 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 16:31:11.356572 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 10
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce', 'glass of milk', 'boiled potatoes', 'boiled peas', 'plain rice', 'meatballs', 'glass of water']
+Useable training images in total: 3437
+Useable augmented training images in total: 592
+Useable test images in total: 849
+Useable augmented test images in total: 149
+Training data errors: 20
+Testing data errors: 2
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 32
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 0.4
+CLASSES_TO_USE: 10
+USE_CUDA: False
+
+Network Summary: 
+
+Conv1 values:
+    in channels: 3
+    out channels: 64
+    kernelsize: 3
+    stride: 2
+    out height: 149
+    out width: 149
+
+Max1 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv2 values:
+    in channels: 64
+    out channels: 128
+    kernelsize: 4
+    stride: 2
+    out height: 73
+    out width: 73
+
+Max2 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv3 values:
+    in channels: 128
+    out channels: 512
+    kernelsize: 4
+    stride: 2
+    out height: 35
+    out width: 35
+
+Max3 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(128, 512, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=8192, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=200, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=200, out_features=10, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 849 test images: 53.00 %(Random guessing would be 10.00 % on average)
+    Accuracy of plain spaghetti: 32 of 71 correct = 45.07 %
+    Accuracy of slice of bread: 54 of 111 correct = 48.65 %
+    Accuracy of fried egg : 58 of 90 correct = 64.44 %
+    Accuracy of chopped lettuce: 47 of 80 correct = 58.75 %
+    Accuracy of glass of milk: 41 of 77 correct = 53.25 %
+    Accuracy of boiled potatoes: 37 of 82 correct = 45.12 %
+    Accuracy of boiled peas: 24 of 82 correct = 29.27 %
+    Accuracy of plain rice: 28 of 74 correct = 37.84 %
+    Accuracy of meatballs : 54 of 81 correct = 66.67 %
+    Accuracy of glass of water: 73 of 101 correct = 72.28 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 17:16:54.498232 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 10
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce', 'glass of milk', 'boiled potatoes', 'boiled peas', 'plain rice', 'meatballs', 'glass of water']
+Useable training images in total: 8647
+Useable augmented training images in total: 1549
+Useable test images in total: 2158
+Useable augmented test images in total: 390
+Training data errors: 39
+Testing data errors: 10
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 32
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 1
+CLASSES_TO_USE: 10
+USE_CUDA: False
+
+Network Summary: 
+
+Conv1 values:
+    in channels: 3
+    out channels: 64
+    kernelsize: 3
+    stride: 2
+    out height: 149
+    out width: 149
+
+Max1 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv2 values:
+    in channels: 64
+    out channels: 128
+    kernelsize: 4
+    stride: 2
+    out height: 73
+    out width: 73
+
+Max2 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv3 values:
+    in channels: 128
+    out channels: 512
+    kernelsize: 4
+    stride: 2
+    out height: 35
+    out width: 35
+
+Max3 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(128, 512, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=8192, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=200, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=200, out_features=10, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 2158 test images: 56.00 %(Random guessing would be 10.00 % on average)
+    Accuracy of plain spaghetti: 112 of 199 correct = 56.28 %
+    Accuracy of slice of bread: 154 of 265 correct = 58.11 %
+    Accuracy of fried egg : 139 of 213 correct = 65.26 %
+    Accuracy of chopped lettuce: 90 of 199 correct = 45.23 %
+    Accuracy of glass of milk: 152 of 225 correct = 67.56 %
+    Accuracy of boiled potatoes: 91 of 199 correct = 45.73 %
+    Accuracy of boiled peas: 112 of 200 correct = 56.00 %
+    Accuracy of plain rice: 91 of 199 correct = 45.73 %
+    Accuracy of meatballs : 155 of 231 correct = 67.10 %
+    Accuracy of glass of water: 138 of 228 correct = 60.53 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 17:50:22.256996 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 10
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce', 'glass of milk', 'boiled potatoes', 'boiled peas', 'plain rice', 'meatballs', 'glass of water']
+Useable training images in total: 8647
+Useable augmented training images in total: 1549
+Useable test images in total: 2158
+Useable augmented test images in total: 390
+Training data errors: 39
+Testing data errors: 10
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 128
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 1
+CLASSES_TO_USE: 10
+USE_CUDA: False
+
+Network Summary: 
+
+Conv1 values:
+    in channels: 3
+    out channels: 64
+    kernelsize: 3
+    stride: 2
+    out height: 149
+    out width: 149
+
+Max1 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv2 values:
+    in channels: 64
+    out channels: 128
+    kernelsize: 4
+    stride: 2
+    out height: 73
+    out width: 73
+
+Max2 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv3 values:
+    in channels: 128
+    out channels: 512
+    kernelsize: 4
+    stride: 2
+    out height: 35
+    out width: 35
+
+Max3 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(128, 512, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=8192, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=200, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=200, out_features=10, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 2158 test images: 58.00 %(Random guessing would be 10.00 % on average)
+    Accuracy of plain spaghetti: 112 of 199 correct = 56.28 %
+    Accuracy of slice of bread: 137 of 265 correct = 51.70 %
+    Accuracy of fried egg : 137 of 213 correct = 64.32 %
+    Accuracy of chopped lettuce: 101 of 199 correct = 50.75 %
+    Accuracy of glass of milk: 163 of 225 correct = 72.44 %
+    Accuracy of boiled potatoes: 126 of 199 correct = 63.32 %
+    Accuracy of boiled peas: 129 of 200 correct = 64.50 %
+    Accuracy of plain rice: 94 of 199 correct = 47.24 %
+    Accuracy of meatballs : 147 of 231 correct = 63.64 %
+    Accuracy of glass of water: 140 of 228 correct = 61.40 %
+
+**************************************************
+
+
+
+***** TRAINING DONE: 2018-12-16 18:22:50.275579 *****
+
+Data summary:
+Training data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/training_images
+Testing data path: /home/ubuntu/ImageData/SingleLabeledNew/ResizedAndAugmentedFinalData/testing_images
+Number of classes: 10
+Class names: ['plain spaghetti', 'slice of bread', 'fried egg', 'chopped lettuce', 'glass of milk', 'boiled potatoes', 'boiled peas', 'plain rice', 'meatballs', 'glass of water']
+Useable training images in total: 8647
+Useable augmented training images in total: 1549
+Useable test images in total: 2158
+Useable augmented test images in total: 390
+Training data errors: 39
+Testing data errors: 10
+
+Settings:
+NUM_EPOCHS: 5
+BATCH_SIZE: 256
+DIM: 300
+NUM_WORKERS: 0
+USE_TRAIN_AUGMENTATION: True
+USE_TEST_AUGMENTATION: True
+USE_LAZY_IMAGE_LOADING: False
+FRACTION_OF_DATA_TO_USE: 1
+CLASSES_TO_USE: 10
+USE_CUDA: False
+
+Network Summary: 
+
+Conv1 values:
+    in channels: 3
+    out channels: 64
+    kernelsize: 3
+    stride: 2
+    out height: 149
+    out width: 149
+
+Max1 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv2 values:
+    in channels: 64
+    out channels: 128
+    kernelsize: 4
+    stride: 2
+    out height: 73
+    out width: 73
+
+Max2 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+Conv3 values:
+    in channels: 128
+    out channels: 512
+    kernelsize: 4
+    stride: 2
+    out height: 35
+    out width: 35
+
+Max3 values:
+    kernelsize: 2
+    padding: 0
+    stride: 2
+
+
+Network: 
+Net(
+  (conv_1): Conv2d(3, 64, kernel_size=(3, 3), stride=(2, 2))
+  (maxPool2d_1): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv1): ReLU()
+  (conv_2): Conv2d(64, 128, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_2): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv2): ReLU()
+  (conv_3): Conv2d(128, 512, kernel_size=(4, 4), stride=(2, 2))
+  (maxPool2d_3): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  (batchnorm_3): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (relu_conv3): ReLU()
+  (l_1): Linear(in_features=8192, out_features=2000, bias=True)
+  (relu_l_1): ReLU()
+  (l_2): Linear(in_features=2000, out_features=200, bias=True)
+  (relu_l_2): ReLU()
+  (l_out): Linear(in_features=200, out_features=10, bias=True)
+)
+
+Test results:
+Accuracy of the network on the 2158 test images: 59.00 %(Random guessing would be 10.00 % on average)
+    Accuracy of plain spaghetti: 116 of 199 correct = 58.29 %
+    Accuracy of slice of bread: 151 of 265 correct = 56.98 %
+    Accuracy of fried egg : 146 of 213 correct = 68.54 %
+    Accuracy of chopped lettuce: 138 of 199 correct = 69.35 %
+    Accuracy of glass of milk: 136 of 225 correct = 60.44 %
+    Accuracy of boiled potatoes: 93 of 199 correct = 46.73 %
+    Accuracy of boiled peas: 93 of 200 correct = 46.50 %
+    Accuracy of plain rice: 92 of 199 correct = 46.23 %
+    Accuracy of meatballs : 168 of 231 correct = 72.73 %
+    Accuracy of glass of water: 153 of 228 correct = 67.11 %
 
 **************************************************
