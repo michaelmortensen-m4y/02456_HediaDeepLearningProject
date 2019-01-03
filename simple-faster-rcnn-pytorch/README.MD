@@ -45,6 +45,6 @@ Train the model and save the snapshots in /checkpoints folder.
    
 ## Demo
 
-Download the snapshot of model and a test image.
+Download the snapshot of model and test images in 'Demo_images'.
 
 Use `demo.ipynb` to load snapshot and image and show the performance of that model.
